@@ -16,14 +16,22 @@
             text-align: center;
         }
         .dia-lucas {
-            background: #CE0000;
+            background: #ed553b !important;
             color: white;
             font-weight: bold;
         }
         .dia-thalita {
-            background: #000063;
+            background: #20639b !important;
             color: white;
             font-weight: bold;
+        }
+
+        .dia-atual {
+            background: #3caea3;
+            font-weight: bold;
+        }
+        .dia-lucas.dia-atual, .dia-thalita.dia-atual {
+            color: #3caea3;
         }
     </style>
 </head>
@@ -50,8 +58,8 @@
                 </table>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-3" ng-repeat="month in vm.monthsArray track by $index">
+        <div class="row" ng-repeat="monthGroup in vm.monthsArray track by $index">
+            <div class="col-md-3" ng-repeat="month in monthGroup track by $index">
                 <table class="table table-striped table-bordered table-condensed">
                     <tr>
                         <!-- <th></th> -->
@@ -59,7 +67,7 @@
                     </tr>
                     <tr>
                         <!-- <th></th> -->
-                        <th ng-repeat="d in ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'] track by $index">{{d}}</th>
+                        <th ng-repeat="d in ['S', 'T', 'Q', 'Q', 'S', 'S', 'D'] track by $index">{{d}}</th>
                     </tr>
                     <tr ng-repeat="week in month.weeks">
                         <!-- <td>{{(week[0] || week[6]).obj.getWeekNumber()}}</td> -->

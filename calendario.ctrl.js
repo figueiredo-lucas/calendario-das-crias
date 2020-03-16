@@ -4,25 +4,29 @@ angular.module('calendario-das-crias')
         const months = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
         vm.referenceDate = new Date(new Date().getFullYear(), 0, 1);
         vm.referenceWeekend = new Date(2020, 0, 11);
+        vm.currDate = new Date();
+        vm.getClassByWeekNumber = getClassByWeekNumber;
 
-        vm.getClassByWeekNumber = function (day) {
+        buildMonthsArray();
+
+        function getClassByWeekNumber(day) {
+            let css = '';
             if (!day) return;
             const date = day.obj;
             let weekNumber = -1;
             // console.log(date.getDay());
-            if (date.getDay() === 6) {
+            if (date.getDay() === 6 || date.getDay() === 0) {
                 weekNumber = date.getWeekNumber();
-            } else if (date.getDay() === 0) {
-                weekNumber = date.getWeekNumber() - 1;
             }
 
             if (weekNumber > -1) {
-                return weekNumber % 2 === 0 ? 'dia-lucas' : 'dia-thalita';
+                css = weekNumber % 2 === 0 ? 'dia-lucas' : 'dia-thalita';
             }
-            return ''
+            if (date.getDate() === vm.currDate.getDate() && date.getMonth() === vm.currDate.getMonth() && date.getFullYear() === vm.currDate.getFullYear()) {
+                css += ' dia-atual';
+            }
+            return css;
         }
-
-        buildMonthsArray();
 
         function buildMonthsArray() {
             vm.monthsArray = months.reduce((acc, curr) => {
@@ -31,9 +35,10 @@ angular.module('calendario-das-crias')
                 const amountOfWeeks = Math.ceil(amountOfDaysPerMonth(curr) / 7) + 1;
                 for (let i = 0; i < amountOfWeeks; i++) {
                     if (dateMonth.getMonth() !== curr) break;
-                    month.weeks[i] = new Array(7);
-                    for (let j = 0; j < 7; j++) {
-                        if (j === dateMonth.getDay() && dateMonth.getMonth() === curr) {
+                    month.weeks[i] = new Array(8);
+                    for (let j = 1; j <= 7; j++) {
+                        const weekday = dateMonth.getDay() || 7;
+                        if (j === weekday && dateMonth.getMonth() === curr) {
                             month.weeks[i][j] = {
                                 date: dateMonth.getDate(),
                                 obj: new Date(dateMonth)
@@ -41,8 +46,14 @@ angular.module('calendario-das-crias')
                             dateMonth.setDate(dateMonth.getDate() + 1);
                         }
                     }
+                    month.weeks[i].splice(0, 1);
                 }
                 acc.push(month);
+                return acc;
+            }, []).reduce((acc, curr, idx) => {
+                const i = Math.floor(idx / 4);
+                acc[i] = acc[i] || [];
+                acc[i].push(curr);
                 return acc;
             }, []);
         }
