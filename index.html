@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <script src="app.js"></script>
+    <script src="calendario.ctrl.js"></script>
+    <title>Calendário das Crias</title>
+    <style>
+        td, th, h1 {
+            text-align: center;
+        }
+        .dia-lucas {
+            background: #CE0000;
+            color: white;
+            font-weight: bold;
+        }
+        .dia-thalita {
+            background: #000063;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body ng-app="calendario-das-crias" ng-controller="CalendarioCtrl as vm">
+    <div class="container">
+        <h1>Calendário das Crias</h1>
+        <div class="row">
+            <div class="col-md-2">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Legenda</th>
+                    </tr>
+                    <tr>
+                        <td class="dia-lucas">
+                            Lucas
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dia-thalita">
+                            Thalita
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3" ng-repeat="month in vm.monthsArray track by $index">
+                <table class="table table-striped table-bordered table-condensed">
+                    <tr>
+                        <!-- <th></th> -->
+                        <th colspan="7">{{month.name}}</th>
+                    </tr>
+                    <tr>
+                        <!-- <th></th> -->
+                        <th ng-repeat="d in ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'] track by $index">{{d}}</th>
+                    </tr>
+                    <tr ng-repeat="week in month.weeks">
+                        <!-- <td>{{(week[0] || week[6]).obj.getWeekNumber()}}</td> -->
+                        <td ng-repeat="day in week track by $index" ng-class="vm.getClassByWeekNumber(day)">{{day.date}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
