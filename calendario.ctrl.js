@@ -20,7 +20,7 @@ angular.module('calendario-das-crias')
             }
 
             if (weekNumber > -1) {
-                css = weekNumber % 2 === 0 ? 'dia-lucas' : 'dia-thalita';
+                css = weekNumber % 2 === 0 ? 'dia-thalita' : 'dia-lucas';
             }
             if (date.getDate() === vm.currDate.getDate() && date.getMonth() === vm.currDate.getMonth() && date.getFullYear() === vm.currDate.getFullYear()) {
                 css += ' dia-atual';
