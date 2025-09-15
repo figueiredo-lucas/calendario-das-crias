@@ -12,14 +12,18 @@
     <script src="calendario.ctrl.js"></script>
     <title>Calendário das Crias</title>
     <style>
-        td, th, h1 {
+        td,
+        th,
+        h1 {
             text-align: center;
         }
+
         .dia-lucas {
             background: #ed553b !important;
             color: white;
             font-weight: bold;
         }
+
         .dia-thalita {
             background: #20639b !important;
             color: white;
@@ -30,7 +34,9 @@
             background: #3caea3;
             font-weight: bold;
         }
-        .dia-lucas.dia-atual, .dia-thalita.dia-atual {
+
+        .dia-lucas.dia-atual,
+        .dia-thalita.dia-atual {
             color: #3caea3;
         }
     </style>
@@ -47,7 +53,7 @@
                     </tr>
                     <tr>
                         <td class="dia-lucas">
-                            Lucas / Miranda
+                            Lucas
                         </td>
                     </tr>
                     <tr>
@@ -71,7 +77,8 @@
                     </tr>
                     <tr ng-repeat="week in month.weeks">
                         <!-- <td>{{(week[0] || week[6]).obj.getWeekNumber()}}</td> -->
-                        <td ng-repeat="day in week track by $index" ng-class="vm.getClassByWeekNumber(day)">{{day.date}}</td>
+                        <td ng-repeat="day in week track by $index" ng-class="vm.getClassByWeekNumber(day)">{{day.date}}
+                        </td>
                     </tr>
                 </table>
             </div>
