@@ -77,7 +77,8 @@
                     </tr>
                     <tr ng-repeat="week in month.weeks">
                         <!-- <td>{{(week[0] || week[6]).obj.getWeekNumber()}}</td> -->
-                        <td ng-repeat="day in week track by $index" ng-class="vm.getClassByWeekNumber(day)">{{day.date}}
+                        <td title="{{vm.getTitleByWeekNumber(day)}}" ng-repeat="day in week track by $index"
+                            ng-class="vm.getClassByWeekNumber(day)">{{day.date}}
                         </td>
                     </tr>
                 </table>

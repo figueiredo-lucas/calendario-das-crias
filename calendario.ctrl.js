@@ -6,6 +6,7 @@ angular.module('calendario-das-crias')
         vm.referenceWeekend = new Date(2020, 0, 11);
         vm.currDate = new Date();
         vm.getClassByWeekNumber = getClassByWeekNumber;
+        vm.getTitleByWeekNumber = getTitleByWeekNumber;
 
         buildMonthsArray();
 
@@ -26,6 +27,26 @@ angular.module('calendario-das-crias')
                 css += ' dia-atual';
             }
             return css;
+        }
+        
+        function getTitleByWeekNumber(day) {
+            let title = '';
+            if (!day) return;
+            const date = day.obj;
+            let weekNumber = -1;
+            // console.log(date.getDay());
+            if (date.getDay() === 6 || date.getDay() === 0) {
+                weekNumber = date.getWeekNumber();
+            }
+
+            if (weekNumber > -1) {
+                title = weekNumber % 2 === 0 ? 'Dia do Lucas' : 'Dia da Thalita';
+            }
+            if (date.getDate() === vm.currDate.getDate() && date.getMonth() === vm.currDate.getMonth() && date.getFullYear() === vm.currDate.getFullYear()) {
+                if (title.length) title += ' - ';
+                title += 'Dia Atual';
+            }
+            return title;
         }
 
         function buildMonthsArray() {
